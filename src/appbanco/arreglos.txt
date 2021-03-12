@@ -34,3 +34,75 @@
             }
         }
     */
+    public static void AgregarCuenta(Cliente C){
+    Cuenta Aux;
+    Aux=new Cuenta();
+    System.out.println("Ingrese el número de cuenta:");
+    Aux.AsignarNumeroCuenta(Seleccion());
+    C.AgregarCuenta(Aux);
+
+    }
+    public static void SeleccionarCuenta(Cliente C){
+    int opc;
+    Cuenta Aux;
+    if (C.ObtenerNumCuentas()==0)
+    System.out.println("El cliente no tiene cuentas asignadas");
+    else{
+    ListarCuentas(C);
+    System.out.println("Seleccione el indice de la cuenta:");
+    opc=Seleccion();
+    Aux=C.ObtenerCuenta(opc);
+    if (Aux!=null)
+    OperacionCuenta(Aux);
+    else
+    System.out.println("Numero de cuenta no válido");
+    }
+    }
+    public static void ListarCuentas(Cliente C){
+    int Tam,i;
+    Tam=C.ObtenerNumCuentas();
+    System.out.println("Cuentas registradas");
+    for(i=0;i<Tam;i++){
+    Cuenta Aux;
+    Aux=C.ObtenerCuenta(i);
+    System.out.println(i+":"+Aux.ObtenerNumCuenta()+"Saldo:"+Aux.ObtenerSaldo());
+    }
+    }
+    public static void OperacionCuenta(Cuenta C){
+    int opc;
+    System.out.println("1. Abonar Dinero");
+    System.out.println("2. Retirar Dinero");
+    System.out.println("3. Obtener Saldo");
+    opc=Seleccion();
+    switch (opc){
+    case 1:AbonarenCuenta(C);break;
+    case 2:RetirarDinero(C);break;
+    case 3:ObtenerSaldo(C);break;
+    }
+    }
+    public static void AbonarenCuenta(Cuenta C){
+    double Dinero;
+    Scanner Cantidad;
+    Cantidad=new Scanner(System.in);
+    System.out.println("Ingrese la cantida a abonar:");
+    Dinero=Cantidad.nextDouble();
+    if (C.AbonarDinero(Dinero))
+    System.out.println("Transaccion realizada");
+    else
+    System.out.println("No se realizo la transaccion");
+    }
+    public static void RetirarDinero(Cuenta C){
+    double Dinero;
+    Scanner Cantidad;
+    Cantidad=new Scanner(System.in);
+    System.out.println("Ingrese la cantida a retirar:");
+    Dinero=Cantidad.nextDouble();
+    if (C.RetirarDinero(Dinero))
+
+    System.out.println("Transaccion realizada");
+    else
+    System.out.println("No se realizo la transaccion");
+    }
+    public static void ObtenerSaldo(Cuenta C){
+    System.out.println("El saldo actual es:"+C.ObtenerSaldo());
+    }
