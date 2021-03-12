@@ -1,6 +1,5 @@
 package appbanco;
 
-
 public class Cuenta{
 
     protected int numeroCuenta;
@@ -31,7 +30,6 @@ public class Cuenta{
     }
 
     public double obtenerSaldo(){
-
         return saldo;
     }
 
