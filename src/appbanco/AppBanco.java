@@ -103,6 +103,12 @@ public class AppBanco {
             opc = Seleccion();
 
             switch(opc){
+                case 1:
+                    AgregarCuenta(cl);
+                    break;
+                case 2:
+                    SeleccionarCuenta();
+                    break;
             }
 
         }while(opc != 9);
@@ -138,7 +144,9 @@ public class AppBanco {
                 client.AgregarCuenta(ca);
                 break;
             case 2:
-                
+                CuentaInversion myCI = new CuentaInversion(0.15, 0.07);
+                myCI.asignarNumeroCuenta(accountNumber);
+                client.AgregarCuenta(myCI); //otro polimorfismo nivel método
                 break;
             case 3:
                 CuentaCredito cc = new CuentaCredito();
@@ -149,6 +157,10 @@ public class AppBanco {
             default:
                 System.out.println("Cuenta no ingresada");
         }
+    }
+
+    public static void SeleccionarCuenta(){
+        
     }
 
 } //llave de la clase
