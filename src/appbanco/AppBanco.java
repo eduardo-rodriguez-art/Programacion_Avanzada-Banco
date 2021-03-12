@@ -107,7 +107,7 @@ public class AppBanco {
                     AgregarCuenta(cl);
                     break;
                 case 2:
-                    SeleccionarCuenta();
+                    SeleccionarCuenta(cl);
                     break;
             }
 
@@ -159,8 +159,55 @@ public class AppBanco {
         }
     }
 
-    public static void SeleccionarCuenta(){
-        
+    public static void SeleccionarCuenta(Cliente cl){
+        int opc;
+        Cuenta aux;
+        if(cl.ObtenerNumeroCuentas()==0){
+            System.out.println("El cliente no tiene cuentas asignadas");
+        }else{
+            ListarCuentas(cl);  //el metodo esta debajo de este
+            System.out.println("Seleccione el indice de la cuenta");
+            opc = Seleccion();
+            aux = cl.ObtenerCuenta(opc);
+            if(aux != null){
+                OperacionCuenta(aux);  //esta debajo
+            }else{
+                System.out.println("Numero de cuenta no valido");
+            }
+        }
+    }
+
+    public static void ListarCuentas(Cliente cl){
+        int tam, i;
+        tam = cl.ObtenerNumeroCuentas();
+        if(tam == 0){
+            System.out.println("No hay cuentas registradas");
+        }else{
+            System.out.println("Estas son las cuentas disponibles");
+            for (i=0;i<tam;i++){
+                Cuenta aux;
+                aux = cl.ObtenerCuenta(i);
+                System.out.println(" "+i+": "+aux.obtenerNumeroCuenta()+"\nSaldo"+aux.obtenerSaldo());
+            }
+        }
+    }
+
+    public static void OperacionCuenta(Cuenta myAcc){
+        int opc;
+        System.out.println("1. Abonar dinero");
+        System.out.println("2. Retirar dinero");
+        System.out.println("3. Obtener saldo");
+        System.out.println("4. Calcular Utilidad");
+        System.out.println("9. Regresar al menu");
+        System.out.print("Ingrese seleccion: ");
+        opc = Seleccion();
+        do{
+            switch(opc){
+                
+            }
+
+        }while(opc != 9);
+
     }
 
 } //llave de la clase
