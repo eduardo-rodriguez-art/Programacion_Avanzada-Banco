@@ -141,6 +141,8 @@ public class AppBanco {
                 break;
             case 3:
                 CuentaCredito cc = new CuentaCredito();
+                cc.setLimiteCredito(1000.0);
+                client.AgregarCuenta(cc); // creo que polimorfismo nivel metodo
                 break;
 
             default:
