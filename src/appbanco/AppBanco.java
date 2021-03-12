@@ -114,6 +114,8 @@ public class AppBanco {
 
     /**
         Este le agrega una cuenta al usuario
+     voy a hacer nuevas clases con herencia
+     e implementarlas aqui
      */
     public static void AgregarCuenta(Cliente client){
         int opc1, accountNumber;
@@ -125,11 +127,24 @@ public class AppBanco {
         opc1 = Seleccion();
         System.out.print("Ingrese el numero de cuenta: ");
         accountNumber = Seleccion();
-
+        String clave;
         switch(opc1){
             case 1: // Extiendo clase cuenta y llamo a esa clase
+                CuentaAhorro ca = new CuentaAhorro();
+                ca.asignarNumeroCuenta(accountNumber);
+                System.out.println("Ingrese su nueva clave");
+                clave = Informacion();
+                ca.setClave("1234", clave);
+                client.AgregarCuenta(ca);
+                break;
+            case 2:
 
                 break;
+            case 3:
+                break;
+                
+            default:
+                System.out.println("Cuenta no ingresada");
         }
     }
 
