@@ -36,6 +36,11 @@ public class AppBanco {
         return sc.nextInt();
     }
 
+    public static Double SeleccionDouble(){
+        Scanner dou = new Scanner(System.in);
+        return dou.nextDouble();
+    }
+
     public static String Informacion(){
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
@@ -61,7 +66,7 @@ public class AppBanco {
         if(b.ObtenerNumClientes()==0){
             System.out.println("No hay clientes registrados!");
         }else{
-            ListarClientes(b);
+            ListarClientes(b);  //lista los clientes para que pueda verlos
             System.out.print("Ingrese numero de cliente: ");
             opc = Seleccion();
             aux = b.ObtenerCliente(opc);
@@ -108,6 +113,9 @@ public class AppBanco {
                     break;
                 case 2:
                     SeleccionarCuenta(cl);
+                    break;
+                case 3:
+                    ListarCuentas(cl);
                     break;
             }
 
@@ -166,7 +174,7 @@ public class AppBanco {
             System.out.println("El cliente no tiene cuentas asignadas");
         }else{
             ListarCuentas(cl);  //el metodo esta debajo de este
-            System.out.println("Seleccione el indice de la cuenta");
+            System.out.print("Seleccione el indice de la cuenta: ");
             opc = Seleccion();
             aux = cl.ObtenerCuenta(opc);
             if(aux != null){
@@ -187,11 +195,11 @@ public class AppBanco {
             for (i=0;i<tam;i++){
                 Cuenta aux;
                 aux = cl.ObtenerCuenta(i);
-                System.out.println(" "+i+": "+aux.obtenerNumeroCuenta()+"\nSaldo"+aux.obtenerSaldo());
+                System.out.println(" "+i+": "+aux.obtenerNumeroCuenta()+" - Saldo: $"+aux.obtenerSaldo());
             }
         }
     }
-
+//* problemas aqui
     public static void OperacionCuenta(Cuenta myAcc){
         int opc;
         System.out.println("1. Abonar dinero");
@@ -201,13 +209,64 @@ public class AppBanco {
         System.out.println("9. Regresar al menu");
         System.out.print("Ingrese seleccion: ");
         opc = Seleccion();
-        do{
-            switch(opc){
-                
+            switch(opc) {
+                case 1:
+                    AbonarEnCuenta(myAcc); //tambien debajo
+                    break;
+                case 2:
+                    RetirarDinero(myAcc);
+                    break;
+                case 3:
+                    ObtenerSaldo(myAcc);
+                    break;
+                case 4:
+                    if (myAcc instanceof CuentaInversion) {
+                        CalcularUtilidadMensual((CuentaInversion) myAcc);
+                        //* el valor se castea
+                    } else
+                        System.out.println("No es cuenta de inversion");
+                    break;
             }
+    }
 
-        }while(opc != 9);
+    public static void AbonarEnCuenta(Cuenta c){
+        double dinero;
+        System.out.print("Ingrese cantidad a abonar: $");
+        dinero = SeleccionDouble();
 
+        if(c.abonarDinero(dinero)){
+            System.out.println("Cantidad abonada correctamente");
+        }else{
+            System.out.println("No se realizo la transaccion");
+        }
+    }
+
+    public static void RetirarDinero(Cuenta c){
+        String clave;
+        double dinero;
+        System.out.print("Ingrese cantidad a retirar: $");
+        dinero = SeleccionDouble();
+        if(c instanceof CuentaAhorro){
+            System.out.print("Ingrese la clave: ");
+            clave = Informacion();
+            //se castea para que sea su instancia
+            ((CuentaAhorro)c).RetirarDinero(dinero, clave);
+        }
+        else{
+            if(c.RetirarDinero(dinero)){
+                System.out.println("Transaccion realizada");
+            }else{
+                System.out.println("Error en la transaccion");
+            }
+        }
+    }
+
+    public static void ObtenerSaldo(Cuenta c){
+        System.out.println("El saldo es: $"+c.obtenerSaldo());
+    }
+
+    public static void CalcularUtilidadMensual(CuentaInversion aux){
+        aux.calcularUtilidadMensual();
     }
 
 } //llave de la clase

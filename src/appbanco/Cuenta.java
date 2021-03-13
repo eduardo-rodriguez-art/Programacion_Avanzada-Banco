@@ -33,7 +33,7 @@ public class Cuenta{
         return saldo;
     }
 
-        /*
+/*
         Getters and setters de numero de cuenta
          */
 
